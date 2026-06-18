@@ -26,7 +26,7 @@ console = Console()
 # ---------------------------------------------------------------------------
 
 HEADER = Text(
-    "💰 AthaPyar Htote · အိမ်ထောင်စာရင်း",
+    "💰 AthaPyar Htote · အသပြာထုပ်",
     style="bold bright_yellow",
 )
 
@@ -112,7 +112,7 @@ def dashboard() -> None:
     table.add_row("Cash on hand", fmt(net["cash"]))
     table.add_row("[red]Total debt[/red]", fmt(net["debt"]))
     table.add_row(
-        "[bold bright_yellow]Net worth[/bold]",
+        "[bold bright_yellow]Net worth[/bold bright_yellow]",
         f"[{'green' if net['net_worth'] >= 0 else 'red'}]{fmt(net['net_worth'])}[/]",
     )
     console.print(table)

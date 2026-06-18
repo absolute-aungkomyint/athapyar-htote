@@ -1,0 +1,12 @@
+# Python virtual environment
+venv/
+
+# Bytecode
+__pycache__/
+*.py[cod]
+
+# Database (local user data, not part of source)
+athapyar.db
+
+# OS clutter
+.DS_Store
