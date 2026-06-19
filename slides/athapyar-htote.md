@@ -1,146 +1,124 @@
 ---
 marp: true
-theme: uncover
-class:
-  - lead
-  - invert
 paginate: true
-size: 16:9
+transition: fade
+auto-advance: 20
 ---
 
-<!--
-PechaKucha-style: 6 slides × 20 seconds each = 2 minutes total
--->
-
----
-
-# 💰 AthaPyar Htote
-## အသပြာထုပ်
+# 💰 AthaPyar Htote · အသပြာထုပ်
 
 **Your money, your device, your control.**
 
 A local-first personal budget manager
-built for Myanmar citizens.
+built for Myanmar citizens, by a Myanmar citizen.
 
 ---
 
-<!-- _class: default -->
-
-# 🤔 The Problem
+# 🤔 Problem & Evidence
 
 - **Spreadsheet fatigue** — tracking finances in massive tables is exhausting
 - **Privacy anxiety** — cloud services mean your data lives on someone else's server
+- **No internet, no access** — most tools stop working offline
 - **Complexity overload** — full accounting suites are overkill for personal budgets
-- **No internet? No access.** — most tools stop working offline
 
-<div style="margin-top: 2rem;">
+<br>
 
-**People lose track of their financial progress
-because tracking feels like a chore.**
-
-</div>
+> *"People keep losing traces of their financial progress.
+> Financial clarity should be frictionless — not a chore."*
+>
+> — @absolute-aungkomyint, proposal
 
 ---
-
-<!-- _class: default -->
 
 # ⚡ What It Does
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: left;">
+| # | Feature | What it means |
+|---|---------|---------------|
+| 1 | **Record Income** 💼 | Log salary, freelance, gifts |
+| 2 | **Track Expenses** 🍜 | Categorize every kyat spent |
+| 3 | **Budget Management** 📊 | Per-category spending limits |
+| 4 | **Debt Management** 💳 | Loans, credit cards, repayment plans |
+| 5 | **Financial Goals** 🎯 | Short, medium & long-term targets |
+| 6 | **Net-Worth Reports** 📈 | Assets minus liabilities |
 
-**1. Record Income** 💼
-Log salary, freelance, gifts — know what you have.
+**MVP delivered** — all six features wired to a SQLite schema,
+terminal UI with emoji-rich menus, ~360 lines of Python.
 
-**2. Track Expenses** 🍜
-Categorize every kyat spent.
+---
 
-**3. Budget Management** 📊
-Set spending limits per category.
+# 🔧 Architecture & Tooling
 
-**4. Debt Management** 💳
-Track loans, credit cards, and repayment plans.
+```text
+main.py         ← Rich terminal UI (menu-driven screens)
+database.py     ← SQLite schema + CRUD + auto-seed
+models.py       ← Dataclass layer with helper properties
+```
 
-**5. Financial Goals** 🎯
-Define short, medium & long-term targets.
+| Layer | Choice |
+|-------|--------|
+| Language | Python 3 |
+| Database | SQLite (local file, WAL mode) |
+| UI | Rich library (tables, panels, prompts) |
+| Connectivity | **None required** — offline-first |
 
-**6. Net-Worth Reports** 📈
-Assets minus liabilities — know where you stand.
+**7 tables**: currencies, exchange_rates, categories,
+transactions, budgets, debts, goals.
+
+**MCP / Skills / Agents**: `.mcp.json` filesystem server ·
+`budget-analyzer` skill (read-only reports) ·
+`budget-assistant` agent (financial coach)
+
+---
+
+# 🎯 Design Principles & Lessons
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+
+<div>
+
+**What worked**
+- SQLite + Rich = zero-dependency simplicity
+- Emoji categories make scanning effortless
+- Local-first: no auth, no latency, no privacy risk
+
+**What was hard**
+- Bilingual UI is planned but not yet built
+- Reports need visual charts (still text-only)
+- No recurring-transaction support yet
+
+</div>
+
+<div>
+
+**Principles**
+- 🇲🇲 Myanmar-first, bilingual planned
+- 💱 Multi-currency (MMK, USD, SGD, THB)
+- 🔒 Data never leaves the device
+- ⚡ Transaction entry in seconds, not minutes
+
+</div>
 
 </div>
 
 ---
 
-<!-- _class: default -->
+# 🚀 Roadmap & Next Steps
 
-# 🔧 Under the Hood
+| Status | Item |
+|--------|------|
+| ✅ | Core SQLite schema & seed data |
+| ✅ | Transaction CRUD with categories |
+| ✅ | Budget, debt & goal screens |
+| ✅ | Monthly dashboard + net-worth report |
+| ✅ | MCP filesystem server + skills + agents |
+| ⬜ | Monthly budget visualizations (charts) |
+| ⬜ | Myanmar language bilingual UI |
+| ⬜ | Recurring / scheduled transactions |
+| ⬜ | Export reports (CSV / PDF) |
 
-<div style="text-align: left;">
-
-| Layer | Tech |
-|-------|------|
-| **Language** | Python 3 |
-| **Database** | SQLite (local file) |
-| **Terminal UI** | Rich library |
-| **Connectivity** | **None required** |
-
-</div>
-
-<div style="margin-top: 2rem; text-align: left;">
-
-**7 database tables** — currencies, exchange rates,
-categories, transactions, budgets, debts, goals.
-
-**~360 lines of Python** — lightweight, fast, readable.
-
-</div>
-
----
-
-<!-- _class: default -->
-
-# 🎯 Design Principles
-
-<div style="text-align: left;">
-
-🇲🇲 **Myanmar-first**
-Built for Myanmar citizens — bilingual UI
-(Myanmar + English) planned.
-
-💱 **Multi-currency**
-MMK, USD, SGD, THB with exchange rates —
-for citizens at home and abroad.
-
-🔒 **Local-first & offline-first**
-Data never leaves your device. No accounts,
-no cloud, no internet dependency.
-
-⚡ **Frictionless**
-Terminal UI with emoji-rich menus —
-log a transaction in seconds, not minutes.
-
-</div>
-
----
-
-<!-- _class: default invert -->
-
-# 🚀 What's Next
-
-<div style="text-align: left;">
-
-✅ Core SQLite schema implemented
-✅ Transaction entry — fast & functional
-⬜ Monthly budget visualizations
-⬜ Myanmar language (bilingual UI)
-⬜ Recurring transactions
-⬜ Enhanced reporting & charts
-⬜ Mobile-friendly interface
-
-</div>
-
-<div style="margin-top: 3rem;">
+<br>
 
 ### **Offline. Private. Yours.**
 `python main.py` — that's all it takes.
 
-</div>
+**Mingalaba!** 👋
